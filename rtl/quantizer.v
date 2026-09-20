@@ -1,1 +1,21 @@
-module quantizer(input wire signed [31:0] in_data,input wire [4:0] shift,output reg signed [7:0] out_data); reg signed [31:0] q; always @* begin q=in_data>>>shift; if(q>32'sd127)out_data=8'sd127; else if(q<-32'sd128)out_data=-8'sd128; else out_data=q[7:0]; end endmodule
+module quantizer #(
+    parameter SHIFT = 5
+) (
+    input  wire signed [31:0] data_in,
+    output reg  signed [7:0]  data_out
+);
+
+    reg signed [31:0] scaled;
+
+    always @* begin
+        scaled = data_in >>> SHIFT;
+
+        if (scaled > 32'sd127)
+            data_out = 8'sd127;
+        else if (scaled < -32'sd128)
+            data_out = -8'sd128;
+        else
+            data_out = scaled[7:0];
+    end
+
+endmodule

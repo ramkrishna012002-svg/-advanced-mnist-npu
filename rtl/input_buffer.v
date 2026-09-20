@@ -1,1 +1,22 @@
-module input_buffer(input wire clk,input wire we,input wire [9:0] addr,input wire signed [7:0] din,output reg signed [7:0] dout); reg signed [7:0] mem[0:1023]; always @(posedge clk) begin if(we) mem[addr]<=din; dout<=mem[addr]; end endmodule
+module input_buffer #(
+    parameter DEPTH = 1024,
+    parameter ADDR_WIDTH = 10
+) (
+    input  wire               clk,
+    input  wire               we,
+    input  wire [ADDR_WIDTH-1:0] wr_addr,
+    input  wire signed [7:0]  wr_data,
+    input  wire [ADDR_WIDTH-1:0] rd_addr,
+    output reg  signed [7:0]  rd_data
+);
+
+    reg signed [7:0] mem [0:DEPTH-1];
+
+    always @(posedge clk) begin
+        if (we)
+            mem[wr_addr] <= wr_data;
+
+        rd_data <= mem[rd_addr];
+    end
+
+endmodule

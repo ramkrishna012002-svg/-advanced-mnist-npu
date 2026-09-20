@@ -1,1 +1,16 @@
-module accumulator(input wire clk,input wire rst,input wire en,input wire signed [31:0] data_in,output reg signed [31:0] data_out); always @(posedge clk) begin if(rst)data_out<=0; else if(en)data_out<=data_out+data_in; end endmodule
+module accumulator (
+    input  wire                clk,
+    input  wire                rst,
+    input  wire                en,
+    input  wire signed [31:0]  data_in,
+    output reg  signed [31:0]  data_out
+);
+
+    always @(posedge clk) begin
+        if (rst)
+            data_out <= 32'sd0;
+        else if (en)
+            data_out <= data_in;
+    end
+
+endmodule
