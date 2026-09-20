@@ -1,0 +1,1 @@
+module npu_controller(input wire clk,input wire rst,input wire start,output reg busy,output reg done,output reg compute_en); always @(posedge clk) begin if(rst)begin busy<=0;done<=0;compute_en<=0;end else begin done<=0;compute_en<=0;if(start&&!busy)begin busy<=1;compute_en<=1;end else if(busy)begin busy<=0;done<=1;end end end endmodule

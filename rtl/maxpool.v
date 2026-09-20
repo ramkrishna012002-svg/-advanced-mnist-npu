@@ -1,0 +1,1 @@
+module maxpool2x2(input wire signed [7:0] a,input wire signed [7:0] b,input wire signed [7:0] c,input wire signed [7:0] d,output wire signed [7:0] y); wire signed [7:0] ab=(a>b)?a:b; wire signed [7:0] cd=(c>d)?c:d; assign y=(ab>cd)?ab:cd; endmodule

@@ -1,0 +1,1 @@
+module quantizer(input wire signed [31:0] in_data,input wire [4:0] shift,output reg signed [7:0] out_data); reg signed [31:0] q; always @* begin q=in_data>>>shift; if(q>32'sd127)out_data=8'sd127; else if(q<-32'sd128)out_data=-8'sd128; else out_data=q[7:0]; end endmodule
